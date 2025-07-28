@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Selector Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .sample-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .sample-selector label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4a5568;
+            display: block;
+            margin-bottom: 10px;
+        }
+        #sampleSelect {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            color: #4a5568;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+            min-height: 44px;
+            width: 100%;
+        }
+        #sampleName {
+            font-size: 0.9rem;
+            color: #718096;
+            text-align: center;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sample Selector Test</h1>
+    
+    <div class="sample-selector">
+        <label for="sampleSelect">Choose Sample:</label>
+        <select id="sampleSelect">
+            <option value="default">Default Piano</option>
+            <optgroup label="Bass Sounds">
+                <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Arp_Odyssey_Bass_1.wav">Arp Odyssey Bass 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Korg_Monopoly_Bass_1.wav">Korg Monopoly Bass 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Teisco_60F_Bass_1.wav">Teisco 60F Bass 1</option>
+            </optgroup>
+            <optgroup label="Lead Sounds">
+                <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_1.wav">Roland SH09 Lead 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_1.wav">Teisco 60F Lead 1</option>
+            </optgroup>
+            <optgroup label="Pads">
+                <option value="assets/AJ1_Sounds and FX Wavs/Pads and Layers/Juno_Pad_1.wav">Juno Pad 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Pads and Layers/Juno_Pad_5.wav">Juno Pad 5</option>
+            </optgroup>
+            <optgroup label="Rhodes">
+                <option value="assets/AJ1_Sounds and FX Wavs/Rhodes Chords/AJ1_Fender_Rhodes_Chord_1.wav">Fender Rhodes 1</option>
+                <option value="assets/AJ1_Sounds and FX Wavs/Rhodes Chords/AJ1_Fender_Rhodes_Chord_3.wav">Fender Rhodes 3</option>
+            </optgroup>
+        </select>
+        <span id="sampleName">Default piano sample loaded</span>
+    </div>
+
+    <script>
+        document.getElementById('sampleSelect').addEventListener('change', function(e) {
+            console.log('Selected:', e.target.value);
+            document.getElementById('sampleName').textContent = 'Selected: ' + e.target.value;
+        });
+    </script>
+</body>
+</html>

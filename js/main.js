@@ -4,6 +4,7 @@ class ChordPlayerApp {
         this.chordLibrary = new ChordLibrary();
         this.keyboardRenderer = null;
         this.uiController = new UIController();
+        this.sampleLoader = new SampleLoader();
         
         this.currentRootNote = 'C';
         this.currentChordType = 'Major';
@@ -23,6 +24,9 @@ class ChordPlayerApp {
             
             // Initialize UI
             this.uiController.initialize();
+            
+            // Load samples dynamically
+            await this.sampleLoader.populateSelector('sampleSelect');
             
             // Update initial display
             this.updateChordDisplay();
