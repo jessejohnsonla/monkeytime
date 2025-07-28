@@ -72,10 +72,13 @@ class ChordPlayerApp {
             this.updateChordDisplay();
             this.highlightCurrentChord();
             
-            // Load default sample after UI is fully initialized
-            setTimeout(async () => {
-                const defaultSamplePath = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
-                await this.uiController.loadSampleFromURL(defaultSamplePath);
+            // Trigger the pre-selected sample to load
+            setTimeout(() => {
+                const sampleSelect = document.getElementById('sampleSelect');
+                if (sampleSelect.value !== 'default') {
+                    const changeEvent = new Event('change', { bubbles: true });
+                    sampleSelect.dispatchEvent(changeEvent);
+                }
             }, 100);
             
             this.isInitialized = true;
