@@ -1,16 +1,50 @@
 class SampleLoader {
     constructor() {
         this.manifest = null;
+        // Fallback manifest in case fetch fails
+        this.fallbackManifest = {
+            "folders": {
+                "Lead Sounds": [
+                    "Arp_Odyssey_Lead_1.wav",
+                    "Arp_Odyssey_Lead_2.wav",
+                    "Arp_Odyssey_Lead_3.wav",
+                    "Arp_Odyssey_Lead_4.wav",
+                    "Arp_Odyssey_Lead_5.wav",
+                    "Arp_Odyssey_Lead_6.wav",
+                    "Roland_SH09_Lead_1.wav",
+                    "Roland_SH09_Lead_2.wav",
+                    "Roland_SH09_Lead_3.wav",
+                    "Roland_SH09_Lead_4.wav",
+                    "Roland_SH09_Lead_5.wav",
+                    "Roland_SH09_Lead_6.wav",
+                    "Roland_SH09_Lead_7.wav",
+                    "Roland_SH09_Lead_8.wav",
+                    "Teisco_60F_Lead_1.wav",
+                    "Teisco_60F_Lead_2.wav",
+                    "Teisco_60F_Lead_3.wav",
+                    "Teisco_60F_Lead_4.wav",
+                    "Teisco_60F_Lead_5.wav",
+                    "Teisco_60F_Lead_6.wav",
+                    "Teisco_60F_Lead_7.wav",
+                    "Teisco_60F_Lead_8.wav"
+                ]
+            }
+        };
     }
 
     async loadManifest() {
         try {
             const response = await fetch('assets/manifest.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
             this.manifest = await response.json();
+            console.log('Loaded manifest from file');
             return this.manifest;
         } catch (error) {
-            console.error('Failed to load sample manifest:', error);
-            return null;
+            console.warn('Failed to load sample manifest, using fallback:', error);
+            this.manifest = this.fallbackManifest;
+            return this.manifest;
         }
     }
 
