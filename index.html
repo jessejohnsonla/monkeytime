@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Player</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Chord Player</h1>
+        </header>
+        
+        <div class="chord-display">
+            <div class="chord-name" id="chordName">C Major</div>
+            <div class="chord-notes" id="chordNotes">C - E - G</div>
+        </div>
+        
+        <canvas id="keyboard" class="keyboard-canvas"></canvas>
+        
+        <div class="octave-controls">
+            <button id="octaveDown">-</button>
+            <span id="octaveDisplay">0</span>
+            <button id="octaveUp">+</button>
+        </div>
+        
+        <div class="sample-selector">
+            <input type="file" id="sampleFile" accept="audio/*" style="display: none;">
+            <button id="loadSample">Load Sample</button>
+            <span id="sampleName">No sample loaded</span>
+        </div>
+        
+        <div class="chord-selector">
+            <label for="chordType">Chord Type:</label>
+            <select id="chordType">
+                <optgroup label="Triads">
+                    <option value="Major">Major</option>
+                    <option value="minor">minor</option>
+                    <option value="dim">dim</option>
+                    <option value="aug">aug</option>
+                    <option value="sus2">sus2</option>
+                    <option value="sus4">sus4</option>
+                </optgroup>
+                <optgroup label="7ths">
+                    <option value="7">7</option>
+                    <option value="m7">m7</option>
+                    <option value="maj7">maj7</option>
+                    <option value="dim7">dim7</option>
+                </optgroup>
+                <optgroup label="Extensions">
+                    <option value="9">9</option>
+                    <option value="m9">m9</option>
+                    <option value="maj9">maj9</option>
+                    <option value="11">11</option>
+                    <option value="m11">m11</option>
+                    <option value="13">13</option>
+                    <option value="m13">m13</option>
+                    <option value="add9">add9</option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    
+    <script src="js/audio-engine.js"></script>
+    <script src="js/chord-library.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Player Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-info { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; font-size: 16px; }
+        #log { background: #000; color: #0f0; padding: 10px; height: 200px; overflow-y: auto; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Chord Player Debug</h1>
+    
+    <div class="debug-info">
+        <h3>Audio Context Status</h3>
+        <p>State: <span id="audioState">Not initialized</span></p>
+        <p>Sample Rate: <span id="sampleRate">-</span></p>
+        <p>User Gesture: <span id="userGesture">No</span></p>
+    </div>
+    
+    <div class="debug-info">
+        <h3>Controls</h3>
+        <button onclick="initAudio()">Initialize Audio</button>
+        <button onclick="playTestTone()">Play Test Tone</button>
+        <button onclick="playChord()">Play C Major</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+    
+    <div class="debug-info">
+        <h3>File Upload Test</h3>
+        <input type="file" id="testFile" accept="audio/*">
+        <button onclick="loadTestSample()">Load Sample</button>
+    </div>
+    
+    <div id="log"></div>
+    
+    <script>
+        let audioEngine;
+        let chordLibrary;
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        function updateStatus() {
+            if (audioEngine && audioEngine.audioContext) {
+                document.getElementById('audioState').textContent = audioEngine.audioContext.state;
+                document.getElementById('sampleRate').textContent = audioEngine.audioContext.sampleRate;
+                document.getElementById('userGesture').textContent = audioEngine.userGestureReceived ? 'Yes' : 'No';
+            }
+        }
+        
+        async function initAudio() {
+            try {
+                log('Initializing audio engine...');
+                audioEngine = new AudioEngine();
+                audioEngine.userGestureReceived = true;
+                await audioEngine.init();
+                log('Audio engine initialized: ' + audioEngine.initialized);
+                updateStatus();
+            } catch (error) {
+                log('Error initializing audio: ' + error.message);
+            }
+        }
+        
+        async function playTestTone() {
+            if (!audioEngine || !audioEngine.initialized) {
+                log('Audio engine not initialized');
+                return;
+            }
+            
+            try {
+                log('Playing test tone...');
+                audioEngine.playNote(440, 1.0); // A4 for 1 second
+            } catch (error) {
+                log('Error playing test tone: ' + error.message);
+            }
+        }
+        
+        async function playChord() {
+            if (!audioEngine || !audioEngine.initialized) {
+                log('Audio engine not initialized');
+                return;
+            }
+            
+            if (!chordLibrary) {
+                chordLibrary = new ChordLibrary();
+            }
+            
+            try {
+                log('Playing C Major chord...');
+                const chordNotes = chordLibrary.getChordNotes('C', 'Major', 0);
+                log('Chord notes: ' + chordNotes.join(', '));
+                audioEngine.playChord(chordNotes, 2.0);
+            } catch (error) {
+                log('Error playing chord: ' + error.message);
+            }
+        }
+        
+        async function loadTestSample() {
+            const fileInput = document.getElementById('testFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                log('No file selected');
+                return;
+            }
+            
+            if (!audioEngine || !audioEngine.initialized) {
+                log('Initializing audio first...');
+                await initAudio();
+            }
+            
+            try {
+                log('Loading sample: ' + file.name);
+                const success = await audioEngine.loadSample(file);
+                log('Sample load result: ' + success);
+            } catch (error) {
+                log('Error loading sample: ' + error.message);
+            }
+        }
+        
+        // Set up console.log override to capture logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        console.log = function(...args) {
+            log('LOG: ' + args.join(' '));
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            log('ERROR: ' + args.join(' '));
+            originalError.apply(console, args);
+        };
+        
+        console.warn = function(...args) {
+            log('WARN: ' + args.join(' '));
+            originalWarn.apply(console, args);
+        };
+        
+        log('Debug page loaded');
+    </script>
+    
+    <script src="js/audio-engine.js"></script>
+    <script src="js/chord-library.js"></script>
+</body>
+</html>

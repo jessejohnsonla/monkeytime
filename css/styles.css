@@ -1,0 +1,334 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #333;
+}
+
+/* Main container */
+.app-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+}
+
+/* Header */
+header h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+/* Chord display */
+.chord-display {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 15px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.chord-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4a5568;
+    margin-bottom: 5px;
+}
+
+.chord-notes {
+    font-size: 1.1rem;
+    color: #718096;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Keyboard canvas */
+.keyboard-canvas {
+    width: 100%;
+    height: 200px;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    touch-action: none;
+    user-select: none;
+}
+
+/* Controls section */
+.octave-controls,
+.sample-selector,
+.chord-selector {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Octave controls */
+.octave-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.octave-controls button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.octave-controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.octave-controls button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+#octaveDisplay {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4a5568;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Sample selector */
+.sample-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#loadSample {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    min-height: 44px;
+}
+
+#loadSample:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+}
+
+#loadSample:active {
+    transform: translateY(0);
+}
+
+#loadSample:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#sampleName {
+    font-size: 0.9rem;
+    color: #718096;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Chord selector */
+.chord-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chord-selector label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+#chordType {
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: white;
+    color: #4a5568;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    min-height: 44px;
+}
+
+#chordType:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Option groups styling */
+#chordType optgroup {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+#chordType option {
+    padding: 8px;
+    font-size: 1rem;
+}
+
+/* Notifications */
+.notification {
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 15px;
+        margin: 5px;
+        border-radius: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .chord-name {
+        font-size: 1.5rem;
+    }
+    
+    .chord-notes {
+        font-size: 1rem;
+    }
+    
+    .keyboard-canvas {
+        height: 150px;
+    }
+    
+    .octave-controls button {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+    
+    #octaveDisplay {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .app-container {
+        padding: 12px;
+    }
+    
+    .keyboard-canvas {
+        height: 120px;
+    }
+    
+    .octave-controls {
+        gap: 15px;
+    }
+    
+    .octave-controls button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+    .octave-controls button:hover {
+        transform: none;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    #loadSample:hover {
+        transform: none;
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .app-container {
+        background: white;
+        border: 2px solid #000;
+    }
+    
+    .chord-display {
+        border-color: #000;
+    }
+    
+    .keyboard-canvas {
+        border-color: #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .octave-controls button:hover,
+    #loadSample:hover {
+        transform: none;
+    }
+}
