@@ -140,6 +140,40 @@ header h1 {
     gap: 12px;
 }
 
+.sample-selector label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+#sampleSelect {
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: white;
+    color: #4a5568;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    min-height: 44px;
+}
+
+#sampleSelect:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#sampleSelect optgroup {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+#sampleSelect option {
+    padding: 8px;
+    font-size: 1rem;
+}
+
 .ios-instructions {
     background: #e3f2fd;
     border: 1px solid #2196f3;
