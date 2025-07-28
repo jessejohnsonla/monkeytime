@@ -7,8 +7,7 @@ class UIController {
             octaveDown: document.getElementById('octaveDown'),
             octaveUp: document.getElementById('octaveUp'),
             octaveDisplay: document.getElementById('octaveDisplay'),
-            loadSample: document.getElementById('loadSample'),
-            sampleFile: document.getElementById('sampleFile'),
+            sampleSelect: document.getElementById('sampleSelect'),
             sampleName: document.getElementById('sampleName')
         };
         
@@ -39,15 +38,16 @@ class UIController {
             this.changeOctave(1);
         });
 
-        // Sample loading
-        this.elements.loadSample.addEventListener('click', () => {
-            this.elements.sampleFile.click();
-        });
-
-        this.elements.sampleFile.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                this.handleSampleLoad(file);
+        // Sample selector
+        this.elements.sampleSelect.addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            if (selectedValue === 'default') {
+                this.elements.sampleName.textContent = 'Default piano sample loaded';
+                if (this.callbacks.onSampleLoad) {
+                    this.callbacks.onSampleLoad(null); // Use default
+                }
+            } else {
+                this.loadSampleFromURL(selectedValue);
             }
         });
 
@@ -58,8 +58,7 @@ class UIController {
     addTouchFeedback() {
         const buttons = [
             this.elements.octaveDown,
-            this.elements.octaveUp,
-            this.elements.loadSample
+            this.elements.octaveUp
         ];
 
         buttons.forEach(button => {
@@ -100,40 +99,26 @@ class UIController {
     }
 
     async handleSampleLoad(file) {
-        // Validate file type
-        if (!file.type.startsWith('audio/')) {
-            this.showError('Please select an audio file');
+        if (!file) return;
+
+        if (file.size === 0) {
+            this.showError('iCloud file detected! Download it first in Files app.');
             return;
         }
 
-        // Validate file size (limit to 10MB)
-        const maxSize = 10 * 1024 * 1024;
-        if (file.size > maxSize) {
-            this.showError('File size too large. Please select a file smaller than 10MB');
-            return;
-        }
-
+        this.elements.sampleName.textContent = 'Loading...';
+        
         try {
-            // Update UI to show loading state
-            this.elements.sampleName.textContent = 'Loading...';
-            this.elements.loadSample.disabled = true;
-
-            if (this.callbacks.onSampleLoad) {
-                const success = await this.callbacks.onSampleLoad(file);
-                
-                if (success) {
-                    this.elements.sampleName.textContent = file.name;
-                    this.showSuccess('Sample loaded successfully');
-                } else {
-                    this.elements.sampleName.textContent = 'Load failed';
-                    this.showError('Failed to load sample');
-                }
+            const success = await this.callbacks.onSampleLoad(file);
+            if (success) {
+                this.elements.sampleName.textContent = file.name;
+            } else {
+                this.elements.sampleName.textContent = 'Load failed';
+                this.showError('Failed to load sample');
             }
         } catch (error) {
             this.elements.sampleName.textContent = 'Load failed';
-            this.showError('Error loading sample: ' + error.message);
-        } finally {
-            this.elements.loadSample.disabled = false;
+            this.showError('Error loading sample');
         }
     }
 
@@ -219,9 +204,34 @@ class UIController {
         });
     }
 
+    async loadSampleFromURL(url) {
+        this.elements.sampleName.textContent = 'Loading...';
+        
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            
+            // Create a fake file object for compatibility
+            const fileName = url.split('/').pop();
+            const file = new File([arrayBuffer], fileName, { type: 'audio/wav' });
+            
+            if (this.callbacks.onSampleLoad) {
+                const success = await this.callbacks.onSampleLoad(file);
+                if (success) {
+                    this.elements.sampleName.textContent = `Loaded: ${fileName}`;
+                } else {
+                    this.elements.sampleName.textContent = 'Failed to load';
+                }
+            }
+        } catch (error) {
+            this.elements.sampleName.textContent = 'Error loading sample';
+            console.error('Sample load error:', error);
+        }
+    }
+
     // Initialize UI state
     initialize() {
         this.updateOctaveDisplay();
-        this.elements.sampleName.textContent = 'No sample loaded';
+        this.elements.sampleName.textContent = 'Default piano sample loaded';
     }
 }

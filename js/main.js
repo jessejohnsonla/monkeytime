@@ -109,9 +109,15 @@ class ChordPlayerApp {
 
     async handleSampleLoad(file) {
         try {
-            // Ensure audio context is activated before loading sample
+            // Ensure audio context is activated
             if (!this.audioEngine.initialized) {
                 await this.activateAudioContext();
+            }
+            
+            if (file === null) {
+                // Using default sample - audio engine already has one
+                console.log('Using default piano sample');
+                return true;
             }
             
             const success = await this.audioEngine.loadSample(file);

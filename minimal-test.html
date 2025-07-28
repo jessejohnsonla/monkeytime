@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal File Test</title>
+</head>
+<body>
+    <h1>File Input Test</h1>
+    <input type="file" onchange="alert('File selected: ' + this.files[0].name)">
+    <p>If clicking "Choose File" and selecting a file shows an alert, it works.</p>
+    <p>If no alert appears after selecting a file, iOS file input is broken.</p>
+</body>
+</html>

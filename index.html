@@ -26,9 +26,29 @@
         </div>
         
         <div class="sample-selector">
-            <input type="file" id="sampleFile" accept="audio/*" style="display: none;">
-            <button id="loadSample">Load Sample</button>
-            <span id="sampleName">No sample loaded</span>
+            <label for="sampleSelect">Choose Sample:</label>
+            <select id="sampleSelect">
+                <option value="default">Default Piano</option>
+                <optgroup label="Bass Sounds">
+                    <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Arp_Odyssey_Bass_1.wav">Arp Odyssey Bass 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Korg_Monopoly_Bass_1.wav">Korg Monopoly Bass 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Bass Sounds/Teisco_60F_Bass_1.wav">Teisco 60F Bass 1</option>
+                </optgroup>
+                <optgroup label="Lead Sounds">
+                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_1.wav">Roland SH09 Lead 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_1.wav">Teisco 60F Lead 1</option>
+                </optgroup>
+                <optgroup label="Pads">
+                    <option value="assets/AJ1_Sounds and FX Wavs/Pads and Layers/Juno_Pad_1.wav">Juno Pad 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Pads and Layers/Juno_Pad_5.wav">Juno Pad 5</option>
+                </optgroup>
+                <optgroup label="Rhodes">
+                    <option value="assets/AJ1_Sounds and FX Wavs/Rhodes Chords/AJ1_Fender_Rhodes_Chord_1.wav">Fender Rhodes 1</option>
+                    <option value="assets/AJ1_Sounds and FX Wavs/Rhodes Chords/AJ1_Fender_Rhodes_Chord_3.wav">Fender Rhodes 3</option>
+                </optgroup>
+            </select>
+            <span id="sampleName">Default piano sample loaded</span>
         </div>
         
         <div class="chord-selector">
