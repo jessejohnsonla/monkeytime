@@ -26,7 +26,43 @@ class ChordPlayerApp {
             this.uiController.initialize();
             
             // Load samples dynamically
-            await this.sampleLoader.populateSelector('sampleSelect');
+            try {
+                await this.sampleLoader.populateSelector('sampleSelect');
+            } catch (error) {
+                console.error('Failed to load samples dynamically, using hardcoded fallback:', error);
+                // Hardcoded fallback
+                const selector = document.getElementById('sampleSelect');
+                if (selector) {
+                    selector.innerHTML = `
+                        <option value="default">Default Piano</option>
+                        <optgroup label="Lead Sounds">
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_2.wav">Arp Odyssey Lead 2</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav">Arp Odyssey Lead 3</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_4.wav">Arp Odyssey Lead 4</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_5.wav">Arp Odyssey Lead 5</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_6.wav">Arp Odyssey Lead 6</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_1.wav">Roland SH09 Lead 1</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_2.wav">Roland SH09 Lead 2</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_3.wav">Roland SH09 Lead 3</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_4.wav">Roland SH09 Lead 4</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_5.wav">Roland SH09 Lead 5</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_6.wav">Roland SH09 Lead 6</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_7.wav">Roland SH09 Lead 7</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_8.wav">Roland SH09 Lead 8</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_1.wav">Teisco 60F Lead 1</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_2.wav">Teisco 60F Lead 2</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_3.wav">Teisco 60F Lead 3</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_4.wav">Teisco 60F Lead 4</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_5.wav">Teisco 60F Lead 5</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_6.wav">Teisco 60F Lead 6</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_7.wav">Teisco 60F Lead 7</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_8.wav">Teisco 60F Lead 8</option>
+                        </optgroup>
+                    `;
+                    console.log('Used hardcoded sample fallback');
+                }
+            }
             
             // Update initial display
             this.updateChordDisplay();

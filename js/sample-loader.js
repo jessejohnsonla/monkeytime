@@ -79,11 +79,19 @@ class SampleLoader {
     }
 
     async populateSelector(selectorId) {
+        console.log('SampleLoader: Starting to populate selector', selectorId);
         await this.loadManifest();
         const selector = document.getElementById(selectorId);
+        console.log('SampleLoader: Found selector element:', !!selector);
+        console.log('SampleLoader: Manifest loaded:', !!this.manifest);
+        
         if (selector && this.manifest) {
-            selector.innerHTML = this.generateSampleOptions();
+            const options = this.generateSampleOptions();
+            console.log('SampleLoader: Generated options length:', options.length);
+            selector.innerHTML = options;
             console.log('Sample selector populated with', Object.keys(this.manifest.folders).length, 'categories');
+        } else {
+            console.error('SampleLoader: Failed to populate - selector:', !!selector, 'manifest:', !!this.manifest);
         }
     }
 }
