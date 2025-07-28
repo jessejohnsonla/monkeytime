@@ -64,16 +64,19 @@ class ChordPlayerApp {
                 }
             }
             
-            // Set default chord type in UI
+            // Set default values in UI
             this.uiController.setChordType(this.currentChordType);
-            
-            // Load default sample
-            const defaultSamplePath = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
-            await this.uiController.loadSampleFromURL(defaultSamplePath);
+            this.uiController.setOctave(this.currentOctave);
             
             // Update initial display
             this.updateChordDisplay();
             this.highlightCurrentChord();
+            
+            // Load default sample after UI is fully initialized
+            setTimeout(async () => {
+                const defaultSamplePath = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
+                await this.uiController.loadSampleFromURL(defaultSamplePath);
+            }, 100);
             
             this.isInitialized = true;
             console.log('Chord Player initialized successfully');

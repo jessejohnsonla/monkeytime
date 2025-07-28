@@ -182,6 +182,11 @@ class UIController {
         this.elements.chordType.value = chordType;
     }
 
+    setOctave(octave) {
+        this.currentOctave = octave;
+        this.updateOctaveDisplay();
+    }
+
     // Callback setters
     onChordTypeChange(callback) {
         this.callbacks.onChordTypeChange = callback;
@@ -233,5 +238,8 @@ class UIController {
     initialize() {
         this.updateOctaveDisplay();
         this.elements.sampleName.textContent = 'Default piano sample loaded';
+        
+        // Set default sample selection in dropdown
+        this.elements.sampleSelect.value = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
     }
 }
