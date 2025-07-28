@@ -223,7 +223,7 @@ class UIController {
             if (this.callbacks.onSampleLoad) {
                 const success = await this.callbacks.onSampleLoad(file);
                 if (success) {
-                    this.elements.sampleName.textContent = '';
+                    this.elements.sampleName.textContent = `Loaded: ${fileName}`;
                 } else {
                     this.elements.sampleName.textContent = 'Failed to load';
                 }
