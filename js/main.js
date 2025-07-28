@@ -75,9 +75,15 @@ class ChordPlayerApp {
             // Trigger the pre-selected sample to load
             setTimeout(() => {
                 const sampleSelect = document.getElementById('sampleSelect');
+                console.log('Dropdown value on load:', sampleSelect.value);
+                console.log('Selected option text:', sampleSelect.options[sampleSelect.selectedIndex].text);
+                
                 if (sampleSelect.value !== 'default') {
+                    console.log('Triggering change event for:', sampleSelect.value);
                     const changeEvent = new Event('change', { bubbles: true });
                     sampleSelect.dispatchEvent(changeEvent);
+                } else {
+                    console.log('Dropdown is still on default, not triggering change');
                 }
             }, 100);
             
