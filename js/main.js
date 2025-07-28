@@ -38,7 +38,7 @@ class ChordPlayerApp {
                         <optgroup label="Lead Sounds">
                             <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
                             <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_2.wav">Arp Odyssey Lead 2</option>
-                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav">Arp Odyssey Lead 3</option>
+                            <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav" selected>Arp Odyssey Lead 3</option>
                             <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_4.wav">Arp Odyssey Lead 4</option>
                             <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_5.wav">Arp Odyssey Lead 5</option>
                             <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_6.wav">Arp Odyssey Lead 6</option>
