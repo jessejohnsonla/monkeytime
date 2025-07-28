@@ -11,7 +11,7 @@ class UIController {
             sampleName: document.getElementById('sampleName')
         };
         
-        this.currentOctave = 0;
+        this.currentOctave = -2;
         this.callbacks = {
             onChordTypeChange: null,
             onOctaveChange: null,

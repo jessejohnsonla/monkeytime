@@ -7,8 +7,8 @@ class ChordPlayerApp {
         this.sampleLoader = new SampleLoader();
         
         this.currentRootNote = 'C';
-        this.currentChordType = 'Major';
-        this.currentOctave = 0;
+        this.currentChordType = 'm11';
+        this.currentOctave = -2;
         
         this.isInitialized = false;
     }
@@ -63,6 +63,13 @@ class ChordPlayerApp {
                     console.log('Used hardcoded sample fallback');
                 }
             }
+            
+            // Set default chord type in UI
+            this.uiController.setChordType(this.currentChordType);
+            
+            // Load default sample
+            const defaultSamplePath = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
+            await this.uiController.loadSampleFromURL(defaultSamplePath);
             
             // Update initial display
             this.updateChordDisplay();
