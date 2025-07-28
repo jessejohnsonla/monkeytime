@@ -239,7 +239,11 @@ class UIController {
         this.updateOctaveDisplay();
         this.elements.sampleName.textContent = '';
         
-        // Set default sample selection in dropdown
+        // Set default sample selection in dropdown and trigger change event
         this.elements.sampleSelect.value = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
+        
+        // Trigger change event to ensure UI updates
+        const changeEvent = new Event('change', { bubbles: true });
+        this.elements.sampleSelect.dispatchEvent(changeEvent);
     }
 }
