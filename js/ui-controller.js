@@ -237,7 +237,7 @@ class UIController {
     // Initialize UI state
     initialize() {
         this.updateOctaveDisplay();
-        this.elements.sampleName.textContent = 'Default piano sample loaded';
+        this.elements.sampleName.textContent = '';
         
         // Set default sample selection in dropdown
         this.elements.sampleSelect.value = 'assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav';
