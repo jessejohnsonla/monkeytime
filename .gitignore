@@ -1,8 +1,3 @@
-assets/
-*.wav
-*.mp3
-*.aiff
-*.flac
 .DS_Store
 node_modules/
 dist/
