@@ -303,42 +303,45 @@ class ChordPlayerApp {
     }
 
     showAudioModal() {
-        console.log('showAudioModal called');
         const modal = document.getElementById('audioModal');
         const startButton = document.getElementById('startButton');
         
-        console.log('Modal found:', !!modal);
-        console.log('Button found:', !!startButton);
-        
         if (modal && startButton) {
+            // Show modal
             modal.style.display = 'flex';
             modal.classList.remove('hidden');
-            console.log('Modal shown');
+            console.log('Audio modal shown');
             
-            const clickHandler = async () => {
-                console.log('Button clicked!');
+            startButton.addEventListener('click', async () => {
+                console.log('Start button clicked');
                 
-                // Activate audio
-                await this.activateAudioContext();
-                
-                // Hide modal
-                modal.style.display = 'none';
-                modal.classList.add('hidden');
-                console.log('Modal hidden');
-                
-                // Load sample
-                const sampleSelect = document.getElementById('sampleSelect');
-                if (sampleSelect && sampleSelect.value !== 'default') {
-                    const event = new Event('change', { bubbles: true });
-                    sampleSelect.dispatchEvent(event);
+                try {
+                    // Activate audio context
+                    console.log('Activating audio context...');
+                    await this.activateAudioContext();
+                    console.log('Audio context activated');
+                    
+                    // Hide modal completely
+                    modal.classList.add('hidden');
+                    modal.style.display = 'none';
+                    console.log('Modal hidden');
+                    
+                    // Trigger the default sample load
+                    setTimeout(() => {
+                        const sampleSelect = document.getElementById('sampleSelect');
+                        if (sampleSelect && sampleSelect.value !== 'default') {
+                            console.log('Triggering sample load for:', sampleSelect.value);
+                            const changeEvent = new Event('change', { bubbles: true });
+                            sampleSelect.dispatchEvent(changeEvent);
+                        }
+                    }, 100);
+                    
+                } catch (error) {
+                    console.error('Error in start button click:', error);
                 }
-            };
-            
-            startButton.onclick = clickHandler;
-            startButton.ontouchend = clickHandler;
-            console.log('Click handlers set');
+            }, { once: true }); // Only allow one click
         } else {
-            console.error('Modal/button missing');
+            console.error('Modal or start button not found');
         }
     }
 }
