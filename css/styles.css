@@ -434,6 +434,12 @@ header h1 {
     backdrop-filter: blur(10px) !important;
 }
 
+.audio-modal.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 .modal-content {
     background: white;
     padding: 80px 60px;
@@ -487,12 +493,6 @@ header h1 {
 .start-button:active {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-}
-
-.audio-modal.hidden {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
 /* Reduced motion support */
