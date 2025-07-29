@@ -99,26 +99,36 @@ class ChordLibrary {
         return this.PIANO_KEY_TO_MIDI[noteName];
     }
 
-    getKeyboardRange() {
+    getKeyboardRange(rootNote = 'C', octave = 0) {
+        // Base MIDI note for the root (C4 = 60)
+        const baseMidi = 60;
+        const rootMidi = this.PIANO_KEY_TO_MIDI[rootNote] || 60;
+        const octaveOffset = octave * 12;
+        
+        // Calculate the actual root position
+        const actualRoot = baseMidi + (rootMidi - 60) + octaveOffset;
+        
+        // Show 2 octaves starting from the root to ensure all extended chords fit
+        // This covers intervals up to 24 semitones (m13 needs 21)
         return {
-            lowest: 60,  // C4 (middle C)
-            highest: 79  // G5
+            lowest: actualRoot,
+            highest: actualRoot + 24  // 2 full octaves
         };
     }
 
-    getPianoKeys() {
+    getPianoKeys(rootNote = 'C', octave = 0) {
         const keys = [];
-        const range = this.getKeyboardRange();
+        const range = this.getKeyboardRange(rootNote, octave);
         
         for (let midi = range.lowest; midi <= range.highest; midi++) {
             const noteName = this.NOTE_NAMES[midi % 12];
-            const octave = Math.floor(midi / 12) - 1;
+            const noteOctave = Math.floor(midi / 12) - 1;
             const isBlackKey = noteName.includes('#');
             
             keys.push({
                 midi: midi,
                 noteName: noteName,
-                fullName: `${noteName}${octave}`,
+                fullName: `${noteName}${noteOctave}`,
                 isBlackKey: isBlackKey
             });
         }

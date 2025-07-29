@@ -113,6 +113,9 @@ class ChordPlayerApp {
         // Use the pressed key as the root note
         this.currentRootNote = key.noteName;
         
+        // Update keyboard range for the new root note
+        this.keyboardRenderer.updateKeyboardRange(this.currentRootNote, this.currentOctave);
+        
         // Play the chord
         this.playCurrentChord();
         
@@ -129,6 +132,10 @@ class ChordPlayerApp {
 
     handleOctaveChange(octave) {
         this.currentOctave = octave;
+        
+        // Update keyboard range for the new octave
+        this.keyboardRenderer.updateKeyboardRange(this.currentRootNote, this.currentOctave);
+        
         this.highlightCurrentChord();
     }
 
