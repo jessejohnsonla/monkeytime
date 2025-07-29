@@ -53,8 +53,8 @@ class ChordPlayerApp {
             this.isInitialized = true;
             console.log('Chord Player initialized successfully');
             
-            // Show message that audio will activate on first interaction
-            this.uiController.showSuccess('Tap any key to activate audio');
+            // Automatically activate audio context
+            this.activateAudioContext();
             
         } catch (error) {
             console.error('Failed to initialize Chord Player:', error);
