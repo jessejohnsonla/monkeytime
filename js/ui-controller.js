@@ -42,7 +42,7 @@ class UIController {
         this.elements.sampleSelect.addEventListener('change', (event) => {
             const selectedValue = event.target.value;
             if (selectedValue === 'default') {
-                this.elements.sampleName.textContent = 'Default piano sample loaded';
+                this.elements.sampleName.textContent = '';
                 if (this.callbacks.onSampleLoad) {
                     this.callbacks.onSampleLoad(null); // Use default
                 }
