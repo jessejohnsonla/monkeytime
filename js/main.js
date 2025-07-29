@@ -3,6 +3,7 @@ class ChordPlayerApp {
         this.audioEngine = new AudioEngine();
         this.chordLibrary = new ChordLibrary();
         this.keyboardRenderer = null;
+        this.padController = null;
         this.uiController = new UIController();
         this.sampleLoader = new SampleLoader();
         
@@ -18,6 +19,9 @@ class ChordPlayerApp {
             // Initialize keyboard renderer (doesn't need audio context)
             const canvas = document.getElementById('keyboard');
             this.keyboardRenderer = new KeyboardRenderer(canvas, this.chordLibrary);
+            
+            // Initialize pad controller
+            this.padController = new PadController(this.chordLibrary);
             
             // Update keyboard for initial chord
             this.keyboardRenderer.updateKeyboardForChord(this.currentRootNote, this.currentChordType);
@@ -68,6 +72,11 @@ class ChordPlayerApp {
     setupEventHandlers() {
         // Keyboard key press handler
         this.keyboardRenderer.setKeyPressCallback((key) => {
+            this.handleKeyPress(key);
+        });
+
+        // Pad press handler
+        this.padController.setPadPressCallback((key) => {
             this.handleKeyPress(key);
         });
 
@@ -227,6 +236,7 @@ class ChordPlayerApp {
         );
 
         this.keyboardRenderer.highlightChord(chordNotes);
+        this.padController.highlightChordPads(chordNotes);
     }
 
     showError(message) {
