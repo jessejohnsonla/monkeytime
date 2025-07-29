@@ -253,22 +253,41 @@ class ChordPlayerApp {
         const startButton = document.getElementById('startButton');
         
         if (modal && startButton) {
+            // Show modal
             modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            console.log('Audio modal shown');
             
             startButton.addEventListener('click', async () => {
-                // Activate audio context
-                await this.activateAudioContext();
+                console.log('Start button clicked');
                 
-                // Hide modal
-                modal.classList.add('hidden');
-                
-                // Trigger the default sample load
-                const sampleSelect = document.getElementById('sampleSelect');
-                if (sampleSelect && sampleSelect.value !== 'default') {
-                    const changeEvent = new Event('change', { bubbles: true });
-                    sampleSelect.dispatchEvent(changeEvent);
+                try {
+                    // Activate audio context
+                    console.log('Activating audio context...');
+                    await this.activateAudioContext();
+                    console.log('Audio context activated');
+                    
+                    // Hide modal completely
+                    modal.classList.add('hidden');
+                    modal.style.display = 'none';
+                    console.log('Modal hidden');
+                    
+                    // Trigger the default sample load
+                    setTimeout(() => {
+                        const sampleSelect = document.getElementById('sampleSelect');
+                        if (sampleSelect && sampleSelect.value !== 'default') {
+                            console.log('Triggering sample load for:', sampleSelect.value);
+                            const changeEvent = new Event('change', { bubbles: true });
+                            sampleSelect.dispatchEvent(changeEvent);
+                        }
+                    }, 100);
+                    
+                } catch (error) {
+                    console.error('Error in start button click:', error);
                 }
-            });
+            }, { once: true }); // Only allow one click
+        } else {
+            console.error('Modal or start button not found');
         }
     }
 }

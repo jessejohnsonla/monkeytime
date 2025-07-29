@@ -432,7 +432,9 @@ header h1 {
 }
 
 .audio-modal.hidden {
-    display: none;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 
 /* Reduced motion support */
