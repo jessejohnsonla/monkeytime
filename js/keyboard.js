@@ -4,7 +4,9 @@ class KeyboardRenderer {
         this.ctx = this.canvas.getContext('2d');
         this.chordLibrary = chordLibrary;
         
-        this.keys = this.chordLibrary.getPianoKeys();
+        this.currentRootNote = 'C';
+        this.currentChordType = 'Major';
+        this.keys = this.chordLibrary.getPianoKeys(this.currentRootNote, this.currentChordType);
         this.highlightedKeys = new Set();
         this.pressedKeys = new Set();
         
@@ -242,5 +244,11 @@ class KeyboardRenderer {
         this.onKeyRelease = callback;
     }
 
-    // Keyboard range is now static - no need to update visually
+    updateKeyboardForChord(rootNote, chordType) {
+        this.currentRootNote = rootNote;
+        this.currentChordType = chordType;
+        this.keys = this.chordLibrary.getPianoKeys(rootNote, chordType);
+        this.setupCanvas();
+        this.render();
+    }
 }

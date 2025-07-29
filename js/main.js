@@ -19,6 +19,9 @@ class ChordPlayerApp {
             const canvas = document.getElementById('keyboard');
             this.keyboardRenderer = new KeyboardRenderer(canvas, this.chordLibrary);
             
+            // Update keyboard for initial chord
+            this.keyboardRenderer.updateKeyboardForChord(this.currentRootNote, this.currentChordType);
+            
             // Set up event handlers
             this.setupEventHandlers();
             
@@ -113,7 +116,8 @@ class ChordPlayerApp {
         // Use the pressed key as the root note
         this.currentRootNote = key.noteName;
         
-        // No need to update keyboard range - it's static
+        // Update keyboard to show the new chord
+        this.keyboardRenderer.updateKeyboardForChord(this.currentRootNote, this.currentChordType);
         
         // Play the chord
         this.playCurrentChord();
@@ -125,6 +129,10 @@ class ChordPlayerApp {
 
     handleChordTypeChange(chordType) {
         this.currentChordType = chordType;
+        
+        // Update keyboard to show the new chord
+        this.keyboardRenderer.updateKeyboardForChord(this.currentRootNote, this.currentChordType);
+        
         this.updateChordDisplay();
         this.highlightCurrentChord();
     }

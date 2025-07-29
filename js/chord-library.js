@@ -99,21 +99,43 @@ class ChordLibrary {
         return this.PIANO_KEY_TO_MIDI[noteName];
     }
 
-    getKeyboardRange() {
-        // Static range reduced by 6 white keys on the right
-        // Base range: C4 to F5 (1 octave + 5 semitones = 17 keys)
-        // Covers most chord extensions while keeping keys wider
-        const baseMidi = 60; // C4
+    getKeyboardRange(rootNote = 'C', chordType = 'Major') {
+        // Dynamic range that shows exactly 14 keys, adjusted to show full chord
+        const KEYBOARD_SIZE = 14;
+        
+        // Get chord notes at octave 0 for range calculation
+        const chordNotes = this.getChordNotes(rootNote, chordType, 0);
+        
+        if (chordNotes.length === 0) {
+            // Fallback to C4-based range
+            return {
+                lowest: 60,
+                highest: 60 + KEYBOARD_SIZE - 1
+            };
+        }
+        
+        const minChordNote = Math.min(...chordNotes);
+        const maxChordNote = Math.max(...chordNotes);
+        const chordSpan = maxChordNote - minChordNote;
+        
+        // Start from the lowest chord note, ensuring all 14 keys fit
+        let startNote = minChordNote;
+        
+        // If chord span is less than 14, we can center it better
+        if (chordSpan < KEYBOARD_SIZE - 1) {
+            const extraKeys = KEYBOARD_SIZE - 1 - chordSpan;
+            startNote = Math.max(36, minChordNote - Math.floor(extraKeys / 2)); // Don't go below C2
+        }
         
         return {
-            lowest: baseMidi,      // Always C4
-            highest: baseMidi + 17 // F5 (6 white keys less than before)
+            lowest: startNote,
+            highest: startNote + KEYBOARD_SIZE - 1
         };
     }
 
-    getPianoKeys() {
+    getPianoKeys(rootNote = 'C', chordType = 'Major') {
         const keys = [];
-        const range = this.getKeyboardRange();
+        const range = this.getKeyboardRange(rootNote, chordType);
         
         for (let midi = range.lowest; midi <= range.highest; midi++) {
             const noteName = this.NOTE_NAMES[midi % 12];
