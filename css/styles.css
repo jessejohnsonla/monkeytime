@@ -14,6 +14,9 @@ body {
     justify-content: center;
     padding: 10px;
     color: #333;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 /* Main container */
@@ -75,6 +78,11 @@ header h1 {
     background: #ffffff;
     touch-action: none;
     user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Controls section */
