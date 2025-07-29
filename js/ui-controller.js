@@ -7,9 +7,15 @@ class UIController {
             octaveDown: document.getElementById('octaveDown'),
             octaveUp: document.getElementById('octaveUp'),
             octaveDisplay: document.getElementById('octaveDisplay'),
-            sampleSelect: document.getElementById('sampleSelect'),
-            sampleName: document.getElementById('sampleName')
+            sampleSelect: document.getElementById('sampleSelect')
         };
+        
+        // Check for missing elements
+        for (const [key, element] of Object.entries(this.elements)) {
+            if (!element) {
+                console.error(`Missing element: ${key}`);
+            }
+        }
         
         this.currentOctave = -2;
         this.callbacks = {
@@ -42,7 +48,6 @@ class UIController {
         this.elements.sampleSelect.addEventListener('change', (event) => {
             const selectedValue = event.target.value;
             if (selectedValue === 'default') {
-                this.elements.sampleName.textContent = '';
                 if (this.callbacks.onSampleLoad) {
                     this.callbacks.onSampleLoad(null); // Use default
                 }
@@ -106,18 +111,12 @@ class UIController {
             return;
         }
 
-        this.elements.sampleName.textContent = 'Loading...';
-        
         try {
             const success = await this.callbacks.onSampleLoad(file);
-            if (success) {
-                this.elements.sampleName.textContent = file.name;
-            } else {
-                this.elements.sampleName.textContent = 'Load failed';
+            if (!success) {
                 this.showError('Failed to load sample');
             }
         } catch (error) {
-            this.elements.sampleName.textContent = 'Load failed';
             this.showError('Error loading sample');
         }
     }
@@ -210,8 +209,6 @@ class UIController {
     }
 
     async loadSampleFromURL(url) {
-        this.elements.sampleName.textContent = 'Loading...';
-        
         try {
             const response = await fetch(url);
             const arrayBuffer = await response.arrayBuffer();
@@ -222,14 +219,8 @@ class UIController {
             
             if (this.callbacks.onSampleLoad) {
                 const success = await this.callbacks.onSampleLoad(file);
-                if (success) {
-                    this.elements.sampleName.textContent = `Loaded: ${fileName}`;
-                } else {
-                    this.elements.sampleName.textContent = 'Failed to load';
-                }
             }
         } catch (error) {
-            this.elements.sampleName.textContent = 'Error loading sample';
             console.error('Sample load error:', error);
         }
     }
@@ -237,6 +228,5 @@ class UIController {
     // Initialize UI state
     initialize() {
         this.updateOctaveDisplay();
-        this.elements.sampleName.textContent = '';
     }
 }
