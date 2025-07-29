@@ -99,26 +99,22 @@ class ChordLibrary {
         return this.PIANO_KEY_TO_MIDI[noteName];
     }
 
-    getKeyboardRange(rootNote = 'C', octave = 0) {
-        // Base MIDI note for the root (C4 = 60)
-        const baseMidi = 60;
-        const rootMidi = this.PIANO_KEY_TO_MIDI[rootNote] || 60;
+    getKeyboardRange(octave = 0) {
+        // Static range that covers all possible chord extensions
+        // Base range: C4 to B6 (2 octaves + 11 semitones = 35 keys)
+        // This ensures any root note + m13 chord (21 semitones) will fit
+        const baseMidi = 60; // C4
         const octaveOffset = octave * 12;
         
-        // Calculate the actual root position
-        const actualRoot = baseMidi + (rootMidi - 60) + octaveOffset;
-        
-        // Show 2 octaves starting from the root to ensure all extended chords fit
-        // This covers intervals up to 24 semitones (m13 needs 21)
         return {
-            lowest: actualRoot,
-            highest: actualRoot + 24  // 2 full octaves
+            lowest: baseMidi + octaveOffset,      // C at specified octave
+            highest: baseMidi + octaveOffset + 35 // B two octaves + 11 semitones higher
         };
     }
 
-    getPianoKeys(rootNote = 'C', octave = 0) {
+    getPianoKeys(octave = 0) {
         const keys = [];
-        const range = this.getKeyboardRange(rootNote, octave);
+        const range = this.getKeyboardRange(octave);
         
         for (let midi = range.lowest; midi <= range.highest; midi++) {
             const noteName = this.NOTE_NAMES[midi % 12];

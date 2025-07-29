@@ -4,9 +4,8 @@ class KeyboardRenderer {
         this.ctx = this.canvas.getContext('2d');
         this.chordLibrary = chordLibrary;
         
-        this.currentRootNote = 'C';
         this.currentOctave = 0;
-        this.keys = this.chordLibrary.getPianoKeys(this.currentRootNote, this.currentOctave);
+        this.keys = this.chordLibrary.getPianoKeys(this.currentOctave);
         this.highlightedKeys = new Set();
         this.pressedKeys = new Set();
         
@@ -244,10 +243,9 @@ class KeyboardRenderer {
         this.onKeyRelease = callback;
     }
 
-    updateKeyboardRange(rootNote, octave) {
-        this.currentRootNote = rootNote;
+    updateKeyboardRange(octave) {
         this.currentOctave = octave;
-        this.keys = this.chordLibrary.getPianoKeys(rootNote, octave);
+        this.keys = this.chordLibrary.getPianoKeys(octave);
         this.setupCanvas();
         this.render();
     }
