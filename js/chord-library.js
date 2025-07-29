@@ -100,14 +100,14 @@ class ChordLibrary {
     }
 
     getKeyboardRange() {
-        // Static range that covers all possible chord extensions
-        // Base range: C4 to B6 (2 octaves + 11 semitones = 35 keys)
-        // This ensures any root note + m13 chord (21 semitones) will fit
+        // Static range reduced by 6 white keys on the right
+        // Base range: C4 to F5 (1 octave + 5 semitones = 17 keys)
+        // Covers most chord extensions while keeping keys wider
         const baseMidi = 60; // C4
         
         return {
             lowest: baseMidi,      // Always C4
-            highest: baseMidi + 35 // Always B6 + 11 semitones
+            highest: baseMidi + 17 // F5 (6 white keys less than before)
         };
     }
 
