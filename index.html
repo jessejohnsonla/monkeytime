@@ -35,72 +35,74 @@
         
         <canvas id="keyboard" class="keyboard-canvas"></canvas>
         
-        <div class="octave-controls">
-            <button id="octaveDown">-</button>
-            <span id="octaveDisplay">0</span>
-            <button id="octaveUp">+</button>
-        </div>
-        
-        <div class="sample-selector">
-            <label for="sampleSelect">Choose Sample:</label>
-            <select id="sampleSelect">
-                <option value="default">Default Piano</option>
-                <optgroup label="Lead Sounds">
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_2.wav">Arp Odyssey Lead 2</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav" selected>Arp Odyssey Lead 3</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_4.wav">Arp Odyssey Lead 4</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_5.wav">Arp Odyssey Lead 5</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_6.wav">Arp Odyssey Lead 6</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_1.wav">Roland SH09 Lead 1</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_2.wav">Roland SH09 Lead 2</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_3.wav">Roland SH09 Lead 3</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_4.wav">Roland SH09 Lead 4</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_5.wav">Roland SH09 Lead 5</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_6.wav">Roland SH09 Lead 6</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_7.wav">Roland SH09 Lead 7</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_8.wav">Roland SH09 Lead 8</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_1.wav">Teisco 60F Lead 1</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_2.wav">Teisco 60F Lead 2</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_3.wav">Teisco 60F Lead 3</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_4.wav">Teisco 60F Lead 4</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_5.wav">Teisco 60F Lead 5</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_6.wav">Teisco 60F Lead 6</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_7.wav">Teisco 60F Lead 7</option>
-                    <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_8.wav">Teisco 60F Lead 8</option>
-                </optgroup>
-            </select>
-            <span id="sampleName"></span>
-        </div>
-        
-        <div class="chord-selector">
-            <label for="chordType">Chord Type:</label>
-            <select id="chordType">
-                <optgroup label="Triads">
-                    <option value="Major">Major</option>
-                    <option value="minor">minor</option>
-                    <option value="dim">dim</option>
-                    <option value="aug">aug</option>
-                    <option value="sus2">sus2</option>
-                    <option value="sus4">sus4</option>
-                </optgroup>
-                <optgroup label="7ths">
-                    <option value="7">7</option>
-                    <option value="m7">m7</option>
-                    <option value="maj7">maj7</option>
-                    <option value="dim7">dim7</option>
-                </optgroup>
-                <optgroup label="Extensions">
-                    <option value="9">9</option>
-                    <option value="m9" selected>m9</option>
-                    <option value="maj9">maj9</option>
-                    <option value="11">11</option>
-                    <option value="m11">m11</option>
-                    <option value="13">13</option>
-                    <option value="m13">m13</option>
-                    <option value="add9">add9</option>
-                </optgroup>
-            </select>
+        <div class="controls-container">
+            <div class="octave-controls">
+                <button id="octaveDown">-</button>
+                <span id="octaveDisplay">0</span>
+                <button id="octaveUp">+</button>
+            </div>
+            
+            <div class="sample-selector">
+                <label for="sampleSelect">Sample:</label>
+                <select id="sampleSelect">
+                    <option value="default">Default Piano</option>
+                    <optgroup label="Lead Sounds">
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_1.wav">Arp Odyssey Lead 1</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_2.wav">Arp Odyssey Lead 2</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_3.wav" selected>Arp Odyssey Lead 3</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_4.wav">Arp Odyssey Lead 4</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_5.wav">Arp Odyssey Lead 5</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Arp_Odyssey_Lead_6.wav">Arp Odyssey Lead 6</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_1.wav">Roland SH09 Lead 1</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_2.wav">Roland SH09 Lead 2</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_3.wav">Roland SH09 Lead 3</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_4.wav">Roland SH09 Lead 4</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_5.wav">Roland SH09 Lead 5</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_6.wav">Roland SH09 Lead 6</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_7.wav">Roland SH09 Lead 7</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Roland_SH09_Lead_8.wav">Roland SH09 Lead 8</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_1.wav">Teisco 60F Lead 1</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_2.wav">Teisco 60F Lead 2</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_3.wav">Teisco 60F Lead 3</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_4.wav">Teisco 60F Lead 4</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_5.wav">Teisco 60F Lead 5</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_6.wav">Teisco 60F Lead 6</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_7.wav">Teisco 60F Lead 7</option>
+                        <option value="assets/AJ1_Sounds and FX Wavs/Lead Sounds/Teisco_60F_Lead_8.wav">Teisco 60F Lead 8</option>
+                    </optgroup>
+                </select>
+                <span id="sampleName"></span>
+            </div>
+            
+            <div class="chord-selector">
+                <label for="chordType">Chord:</label>
+                <select id="chordType">
+                    <optgroup label="Triads">
+                        <option value="Major">Major</option>
+                        <option value="minor">minor</option>
+                        <option value="dim">dim</option>
+                        <option value="aug">aug</option>
+                        <option value="sus2">sus2</option>
+                        <option value="sus4">sus4</option>
+                    </optgroup>
+                    <optgroup label="7ths">
+                        <option value="7">7</option>
+                        <option value="m7">m7</option>
+                        <option value="maj7">maj7</option>
+                        <option value="dim7">dim7</option>
+                    </optgroup>
+                    <optgroup label="Extensions">
+                        <option value="9">9</option>
+                        <option value="m9" selected>m9</option>
+                        <option value="maj9">maj9</option>
+                        <option value="11">11</option>
+                        <option value="m11">m11</option>
+                        <option value="13">13</option>
+                        <option value="m13">m13</option>
+                        <option value="add9">add9</option>
+                    </optgroup>
+                </select>
+            </div>
         </div>
     </div>
     

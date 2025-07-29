@@ -8,61 +8,72 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 5px;
+    margin: 0;
     color: #333;
     touch-action: manipulation;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    overflow: hidden;
 }
 
 /* Main container */
 .app-container {
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
+    height: 100vh;
+    max-height: 100vh;
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 /* Header */
+header {
+    flex-shrink: 0;
+}
+
 header h1 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 20px;
+    margin: 0 0 10px 0;
 }
 
 /* Chord display */
 .chord-display {
     text-align: center;
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 8px;
+    padding: 8px;
     background: rgba(102, 126, 234, 0.1);
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid rgba(102, 126, 234, 0.2);
+    flex-shrink: 0;
 }
 
 .chord-name {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #4a5568;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .chord-notes {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #718096;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -73,39 +84,41 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 20px;
-    padding: 15px;
+    gap: 4px;
+    margin-bottom: 8px;
+    padding: 8px;
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid #e2e8f0;
+    flex-shrink: 0;
+    max-height: 120px;
 }
 
 .pad {
     aspect-ratio: 1;
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     border: 2px solid #dee2e6;
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #495057;
     cursor: pointer;
     user-select: none;
     touch-action: manipulation;
     transition: all 0.1s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
-    min-height: 60px;
+    min-height: 30px;
 }
 
 .pad::after {
     content: attr(data-name);
     position: absolute;
-    bottom: 5px;
-    font-size: 0.7rem;
+    bottom: 2px;
+    font-size: 0.6rem;
     opacity: 0.7;
 }
 
@@ -126,11 +139,11 @@ header h1 {
 /* Keyboard canvas */
 .keyboard-canvas {
     width: 100%;
-    height: 200px;
+    height: 120px;
     border: 2px solid #e2e8f0;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background: #ffffff;
     touch-action: none;
     user-select: none;
@@ -139,17 +152,26 @@ header h1 {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    flex-shrink: 0;
 }
 
 /* Controls section */
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+}
+
 .octave-controls,
 .sample-selector,
 .chord-selector {
-    margin-bottom: 15px;
-    padding: 15px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
+    border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 /* Octave controls */
@@ -161,22 +183,22 @@ header h1 {
 }
 
 .octave-controls button {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: none;
     border-radius: 50%;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 40px;
+    min-width: 40px;
 }
 
 .octave-controls button:hover {
@@ -190,36 +212,42 @@ header h1 {
 }
 
 #octaveDisplay {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #4a5568;
-    min-width: 40px;
+    min-width: 30px;
     text-align: center;
 }
 
 /* Sample selector */
-.sample-selector {
+.sample-selector,
+.chord-selector {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 8px;
 }
 
-.sample-selector label {
-    font-size: 1rem;
+.sample-selector label,
+.chord-selector label {
+    font-size: 0.9rem;
     font-weight: 600;
     color: #4a5568;
+    margin-right: 8px;
+    white-space: nowrap;
 }
 
-#sampleSelect {
-    padding: 12px 15px;
+#sampleSelect,
+#chordType {
+    padding: 6px 8px;
     border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
     background: white;
     color: #4a5568;
     cursor: pointer;
     transition: border-color 0.2s ease;
-    min-height: 44px;
+    min-height: 32px;
+    flex: 1;
 }
 
 #sampleSelect:focus {
@@ -277,42 +305,16 @@ header h1 {
 }
 
 #sampleName {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: #718096;
-    text-align: center;
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
 }
 
-/* Chord selector */
-.chord-selector {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.chord-selector label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #4a5568;
-}
-
-#chordType {
-    padding: 12px 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 1rem;
-    background: white;
-    color: #4a5568;
-    cursor: pointer;
-    transition: border-color 0.2s ease;
-    min-height: 44px;
-}
-
-#chordType:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
+/* Remove redundant chord selector styles - already defined above */
 
 /* Option groups styling */
 #chordType optgroup {
