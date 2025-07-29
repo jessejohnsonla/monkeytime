@@ -249,14 +249,28 @@ class ChordPlayerApp {
     }
 
     showAudioModal() {
+        console.log('showAudioModal called');
         const modal = document.getElementById('audioModal');
         const startButton = document.getElementById('startButton');
         
+        console.log('Modal element found:', !!modal);
+        console.log('Start button found:', !!startButton);
+        
         if (modal && startButton) {
-            // Show modal
+            // Force show modal with multiple approaches
             modal.style.display = 'flex';
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
             modal.classList.remove('hidden');
-            console.log('Audio modal shown');
+            console.log('Audio modal should now be visible');
+            
+            // Force modal to be on top
+            modal.style.zIndex = '999999';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
             
             startButton.addEventListener('click', async () => {
                 console.log('Start button clicked');
@@ -288,6 +302,7 @@ class ChordPlayerApp {
             }, { once: true }); // Only allow one click
         } else {
             console.error('Modal or start button not found');
+            console.error('Available elements with IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
         }
     }
 }
