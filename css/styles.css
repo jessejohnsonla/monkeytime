@@ -91,11 +91,11 @@ header h1 {
     border-radius: 8px;
     border: 2px solid #e2e8f0;
     flex-shrink: 0;
-    height: 180px;
+    height: 200px;
 }
 
 .pad {
-    aspect-ratio: 1.5/1;
+    aspect-ratio: 1/1.2;
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     border: 1px solid #dee2e6;
     border-radius: 6px;
