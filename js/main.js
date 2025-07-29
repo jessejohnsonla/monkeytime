@@ -322,8 +322,10 @@ class ChordPlayerApp {
                     console.log('Audio context activated');
                     
                     // Hide modal completely
-                    modal.classList.add('hidden');
                     modal.style.display = 'none';
+                    modal.style.visibility = 'hidden';
+                    modal.style.opacity = '0';
+                    modal.classList.add('hidden');
                     console.log('Modal hidden');
                     
                     // Trigger the default sample load
