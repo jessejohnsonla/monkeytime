@@ -7,7 +7,7 @@ class ChordPlayerApp {
         this.sampleLoader = new SampleLoader();
         
         this.currentRootNote = 'C';
-        this.currentChordType = 'm11';
+        this.currentChordType = 'm9';
         this.currentOctave = -2;
         
         this.isInitialized = false;
