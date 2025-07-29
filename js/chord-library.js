@@ -100,73 +100,15 @@ class ChordLibrary {
     }
 
     getKeyboardRange(rootNote = 'C', chordType = 'Major') {
-        // Dynamic range that shows exactly 14 white keys, adjusted to show full chord
-        const WHITE_KEYS_COUNT = 14;
-        
-        // Get chord notes at octave 0 for range calculation
-        const chordNotes = this.getChordNotes(rootNote, chordType, 0);
-        
-        if (chordNotes.length === 0) {
-            // Fallback: C4 + 14 white keys (2 octaves)
-            return {
-                lowest: 60,  // C4
-                highest: 83  // B5 (14 white keys from C4)
-            };
-        }
-        
-        const minChordNote = Math.min(...chordNotes);
-        const maxChordNote = Math.max(...chordNotes);
-        
-        // Find a starting white key that will show all chord notes within 14 white keys
-        // Start from a white key at or before the lowest chord note
-        let startWhiteKey = this.findNearestWhiteKeyAtOrBelow(minChordNote);
-        
-        // Calculate the range that includes 14 white keys from the start
-        const endNote = this.findNthWhiteKeyFrom(startWhiteKey, WHITE_KEYS_COUNT - 1);
-        
-        // Ensure the highest chord note fits within this range
-        if (maxChordNote > endNote) {
-            // Shift the range to accommodate the highest chord note
-            const newEndNote = Math.max(endNote, maxChordNote);
-            startWhiteKey = this.findNthWhiteKeyFrom(newEndNote, -(WHITE_KEYS_COUNT - 1));
-        }
-        
-        const finalEndNote = this.findNthWhiteKeyFrom(startWhiteKey, WHITE_KEYS_COUNT - 1);
+        // Show exactly 14 white keys - simplified approach
+        // Just show 2 octaves (14 white keys) starting from C4
+        const startNote = 60; // C4
+        const endNote = 83;   // B5 (exactly 14 white keys from C4)
         
         return {
-            lowest: startWhiteKey,
-            highest: finalEndNote
+            lowest: startNote,
+            highest: endNote
         };
-    }
-    
-    findNearestWhiteKeyAtOrBelow(midiNote) {
-        for (let note = midiNote; note >= 0; note--) {
-            const noteName = this.NOTE_NAMES[note % 12];
-            if (!noteName.includes('#')) {
-                return note;
-            }
-        }
-        return 60; // Fallback to C4
-    }
-    
-    findNthWhiteKeyFrom(startNote, n) {
-        let currentNote = startNote;
-        let whiteKeysFound = 0;
-        
-        if (n === 0) return startNote;
-        
-        const direction = n > 0 ? 1 : -1;
-        const targetCount = Math.abs(n);
-        
-        while (whiteKeysFound < targetCount && currentNote >= 0 && currentNote <= 127) {
-            currentNote += direction;
-            const noteName = this.NOTE_NAMES[currentNote % 12];
-            if (!noteName.includes('#')) {
-                whiteKeysFound++;
-            }
-        }
-        
-        return currentNote;
     }
 
     getPianoKeys(rootNote = 'C', chordType = 'Major') {
