@@ -304,92 +304,60 @@ class ChordPlayerApp {
 
     showAudioModal() {
         console.log('showAudioModal called');
+        const modal = document.getElementById('audioModal');
+        const startButton = document.getElementById('startButton');
         
-        // Add a delay to ensure DOM is fully loaded
-        setTimeout(() => {
-            const modal = document.getElementById('audioModal');
-            const startButton = document.getElementById('startButton');
+        console.log('Modal element found:', !!modal);
+        console.log('Start button found:', !!startButton);
+        
+        if (modal && startButton) {
+            // Force show modal with multiple approaches
+            modal.style.display = 'flex';
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            modal.classList.remove('hidden');
+            console.log('Audio modal should now be visible');
             
-            console.log('Modal element found:', !!modal);
-            console.log('Start button found:', !!startButton);
+            // Force modal to be on top
+            modal.style.zIndex = '999999';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
             
-            if (modal) {
-                console.log('Modal current styles:', {
-                    display: modal.style.display,
-                    visibility: modal.style.visibility,
-                    opacity: modal.style.opacity,
-                    classes: modal.className
-                });
-            }
-            
-            if (modal && startButton) {
-                // Force show modal with multiple approaches
-                modal.style.display = 'flex';
-                modal.style.visibility = 'visible';
-                modal.style.opacity = '1';
-                modal.classList.remove('hidden');
-                console.log('Audio modal styles applied');
+            startButton.addEventListener('click', async () => {
+                console.log('Start button clicked');
                 
-                // Force modal to be on top with all properties
-                modal.style.zIndex = '999999';
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.right = '0';
-                modal.style.bottom = '0';
-                modal.style.width = '100vw';
-                modal.style.height = '100vh';
-                modal.style.background = 'rgba(0, 0, 0, 0.95)';
-                
-                console.log('Modal should now be visible with styles:', {
-                    display: modal.style.display,
-                    position: modal.style.position,
-                    zIndex: modal.style.zIndex
-                });
-            
-                // Add multiple event types for better compatibility
-                const handleStartClick = async (event) => {
-                    console.log('Start button clicked - event type:', event.type);
-                    event.preventDefault();
-                    event.stopPropagation();
+                try {
+                    // Activate audio context
+                    console.log('Activating audio context...');
+                    await this.activateAudioContext();
+                    console.log('Audio context activated');
                     
-                    try {
-                        // Activate audio context
-                        console.log('Activating audio context...');
-                        await this.activateAudioContext();
-                        console.log('Audio context activated');
-                        
-                        // Hide modal completely
-                        modal.classList.add('hidden');
-                        modal.style.display = 'none';
-                        modal.style.visibility = 'hidden';
-                        console.log('Modal hidden');
-                        
-                        // Trigger the default sample load
-                        setTimeout(() => {
-                            const sampleSelect = document.getElementById('sampleSelect');
-                            if (sampleSelect && sampleSelect.value !== 'default') {
-                                console.log('Triggering sample load for:', sampleSelect.value);
-                                const changeEvent = new Event('change', { bubbles: true });
-                                sampleSelect.dispatchEvent(changeEvent);
-                            }
-                        }, 100);
-                        
-                    } catch (error) {
-                        console.error('Error in start button click:', error);
-                    }
-                };
-                
-                // Add multiple event listeners for better iOS compatibility
-                startButton.addEventListener('click', handleStartClick, { once: true });
-                startButton.addEventListener('touchend', handleStartClick, { once: true });
-                
-                console.log('Event listeners added to start button');
-            } else {
-                console.error('Modal or start button not found');
-                console.error('Available elements with IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
-            }
-        }, 500); // Give DOM time to load
+                    // Hide modal completely
+                    modal.classList.add('hidden');
+                    modal.style.display = 'none';
+                    console.log('Modal hidden');
+                    
+                    // Trigger the default sample load
+                    setTimeout(() => {
+                        const sampleSelect = document.getElementById('sampleSelect');
+                        if (sampleSelect && sampleSelect.value !== 'default') {
+                            console.log('Triggering sample load for:', sampleSelect.value);
+                            const changeEvent = new Event('change', { bubbles: true });
+                            sampleSelect.dispatchEvent(changeEvent);
+                        }
+                    }, 100);
+                    
+                } catch (error) {
+                    console.error('Error in start button click:', error);
+                }
+            }, { once: true }); // Only allow one click
+        } else {
+            console.error('Modal or start button not found');
+            console.error('Available elements with IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+        }
     }
 }
 
