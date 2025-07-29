@@ -53,9 +53,6 @@ class ChordPlayerApp {
             this.isInitialized = true;
             console.log('Chord Player initialized successfully');
             
-            // Automatically activate audio context
-            this.activateAudioContext();
-            
         } catch (error) {
             console.error('Failed to initialize Chord Player:', error);
             this.showError('Failed to initialize application');
