@@ -211,10 +211,11 @@ class ChordPlayerApp {
     highlightCurrentChord() {
         if (!this.keyboardRenderer) return;
 
+        // Get chord notes at octave 0 for consistent highlighting position
         const chordNotes = this.chordLibrary.getChordNotes(
             this.currentRootNote,
             this.currentChordType,
-            this.currentOctave
+            0  // Always use octave 0 for highlighting
         );
 
         this.keyboardRenderer.highlightChord(chordNotes);
