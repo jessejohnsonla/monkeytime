@@ -101,8 +101,8 @@ class ChordLibrary {
 
     getKeyboardRange() {
         return {
-            lowest: 48,  // C3
-            highest: 84  // C6
+            lowest: 60,  // C4 (middle C)
+            highest: 79  // G5
         };
     }
 
