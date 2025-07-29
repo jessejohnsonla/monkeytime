@@ -81,6 +81,9 @@ class ChordPlayerApp {
         // Handle audio context activation on first user interaction
         document.addEventListener('touchstart', this.activateAudioContext.bind(this), { once: true });
         document.addEventListener('click', this.activateAudioContext.bind(this), { once: true });
+        document.addEventListener('keydown', this.activateAudioContext.bind(this), { once: true });
+        document.addEventListener('change', this.activateAudioContext.bind(this), { once: true });
+        document.addEventListener('mousedown', this.activateAudioContext.bind(this), { once: true });
     }
 
     async activateAudioContext() {
