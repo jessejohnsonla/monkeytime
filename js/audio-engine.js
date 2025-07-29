@@ -82,10 +82,14 @@ class AudioEngine {
         }
     }
 
-    playNote(frequency, duration = 1.0) {
-        if (!this.initialized) {
-            console.warn('Audio engine not initialized');
-            return;
+    async playNote(frequency, duration = 1.0) {
+        if (!this.checkAudioContextHealth()) {
+            console.warn('Audio context unhealthy, attempting to reactivate');
+            const success = await this.activateAudioContext();
+            if (!success) {
+                console.error('Failed to reactivate audio context');
+                return;
+            }
         }
         
         if (!this.sampleBuffer) {
@@ -141,22 +145,71 @@ class AudioEngine {
         return 440 * Math.pow(2, (midiNote - 69) / 12);
     }
 
-    playChord(midiNotes, duration = 2.0) {
-        midiNotes.forEach(note => {
+    async playChord(midiNotes, duration = 2.0) {
+        // Check audio health once for the entire chord
+        if (!this.checkAudioContextHealth()) {
+            console.warn('Audio context unhealthy, attempting to reactivate');
+            const success = await this.activateAudioContext();
+            if (!success) {
+                console.error('Failed to reactivate audio context');
+                return;
+            }
+        }
+
+        midiNotes.forEach(async note => {
             const frequency = this.calculateFrequency(note);
-            this.playNote(frequency, duration);
+            await this.playNote(frequency, duration);
         });
     }
 
     async activateAudioContext() {
         this.userGestureReceived = true;
         
-        if (!this.audioContext) {
+        // Check if context is lost/closed and needs recreation
+        if (!this.audioContext || this.audioContext.state === 'closed') {
+            console.log('Creating new audio context (context was closed/null)');
+            this.initialized = false; // Reset initialization flag
             await this.init();
         } else if (this.audioContext.state === 'suspended') {
-            await this.audioContext.resume();
+            try {
+                await this.audioContext.resume();
+                console.log('Audio context resumed');
+            } catch (error) {
+                console.error('Failed to resume audio context:', error);
+                // Try recreating the context if resume fails
+                try {
+                    console.log('Recreating audio context after resume failure');
+                    this.audioContext = null;
+                    this.initialized = false;
+                    await this.init();
+                } catch (recreateError) {
+                    console.error('Failed to recreate audio context:', recreateError);
+                    return false;
+                }
+            }
         }
         
         return this.initialized;
+    }
+
+    checkAudioContextHealth() {
+        if (!this.audioContext) {
+            console.log('Audio context health check: context is null');
+            return false;
+        }
+        
+        if (this.audioContext.state === 'closed') {
+            console.log('Audio context health check: context is closed');
+            return false;
+        }
+        
+        if (this.audioContext.state === 'suspended') {
+            console.log('Audio context health check: context is suspended');
+            return false;
+        }
+        
+        const isHealthy = this.audioContext.state === 'running' && this.initialized;
+        console.log('Audio context health check:', isHealthy ? 'healthy' : 'unhealthy');
+        return isHealthy;
     }
 }

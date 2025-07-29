@@ -99,6 +99,13 @@ class ChordPlayerApp {
         document.addEventListener('keydown', this.activateAudioContext.bind(this), { once: true });
         document.addEventListener('change', this.activateAudioContext.bind(this), { once: true });
         document.addEventListener('mousedown', this.activateAudioContext.bind(this), { once: true });
+
+        // Handle page visibility changes (iOS tab switching, phone sleep/wake)
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+        
+        // Handle focus/blur events as backup
+        window.addEventListener('focus', this.handleWindowFocus.bind(this));
+        window.addEventListener('blur', this.handleWindowBlur.bind(this));
     }
 
     async activateAudioContext() {
@@ -112,6 +119,34 @@ class ChordPlayerApp {
         } catch (error) {
             console.error('Failed to activate audio context:', error);
         }
+    }
+
+    handleVisibilityChange() {
+        if (document.hidden) {
+            console.log('Page became hidden - audio context may be suspended');
+        } else {
+            console.log('Page became visible - checking audio context health');
+            // Check audio health when page becomes visible again
+            setTimeout(() => {
+                if (this.audioEngine && !this.audioEngine.checkAudioContextHealth()) {
+                    console.log('Audio context needs reactivation after visibility change');
+                    // Don't auto-reactivate, wait for next user interaction
+                }
+            }, 100);
+        }
+    }
+
+    handleWindowFocus() {
+        console.log('Window focused - checking audio context health');
+        setTimeout(() => {
+            if (this.audioEngine && !this.audioEngine.checkAudioContextHealth()) {
+                console.log('Audio context needs reactivation after window focus');
+            }
+        }, 100);
+    }
+
+    handleWindowBlur() {
+        console.log('Window blurred - audio context may be suspended');
     }
 
     async handleKeyPress(key) {
@@ -129,7 +164,7 @@ class ChordPlayerApp {
         this.keyboardRenderer.updateKeyboardForChord(this.currentRootNote, this.currentChordType);
         
         // Play the chord
-        this.playCurrentChord();
+        await this.playCurrentChord();
         
         // Update display and highlighting
         this.updateChordDisplay();
@@ -182,14 +217,9 @@ class ChordPlayerApp {
         }
     }
 
-    playCurrentChord() {
+    async playCurrentChord() {
         if (!this.isInitialized) {
             console.warn('App not initialized');
-            return;
-        }
-
-        if (!this.audioEngine.initialized) {
-            console.warn('Audio engine not initialized');
             return;
         }
 
@@ -206,8 +236,8 @@ class ChordPlayerApp {
                 // Stop any currently playing notes
                 this.audioEngine.stopAllNotes();
                 
-                // Play the new chord
-                this.audioEngine.playChord(chordNotes, 2.0);
+                // Play the new chord (this will auto-check and reactivate audio if needed)
+                await this.audioEngine.playChord(chordNotes, 2.0);
             }
         } catch (error) {
             console.error('Failed to play chord:', error);
