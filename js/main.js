@@ -326,8 +326,10 @@ class ChordPlayerApp {
             modal.style.width = '100%';
             modal.style.height = '100%';
             
-            startButton.addEventListener('click', async () => {
+            startButton.addEventListener('click', async (event) => {
                 console.log('Start button clicked');
+                event.preventDefault();
+                event.stopPropagation();
                 
                 try {
                     // Activate audio context
@@ -338,6 +340,7 @@ class ChordPlayerApp {
                     // Hide modal completely
                     modal.classList.add('hidden');
                     modal.style.display = 'none';
+                    modal.style.visibility = 'hidden';
                     console.log('Modal hidden');
                     
                     // Trigger the default sample load
