@@ -307,56 +307,38 @@ class ChordPlayerApp {
         const modal = document.getElementById('audioModal');
         const startButton = document.getElementById('startButton');
         
-        console.log('Modal element found:', !!modal);
-        console.log('Start button found:', !!startButton);
+        console.log('Modal found:', !!modal);
+        console.log('Button found:', !!startButton);
         
         if (modal && startButton) {
-            // Force show modal with multiple approaches
             modal.style.display = 'flex';
-            modal.style.visibility = 'visible';
-            modal.style.opacity = '1';
             modal.classList.remove('hidden');
-            console.log('Audio modal should now be visible');
+            console.log('Modal shown');
             
-            // Force modal to be on top
-            modal.style.zIndex = '999999';
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            
-            startButton.addEventListener('click', async () => {
-                console.log('Start button clicked');
+            const clickHandler = async () => {
+                console.log('Button clicked!');
                 
-                try {
-                    // Activate audio context
-                    console.log('Activating audio context...');
-                    await this.activateAudioContext();
-                    console.log('Audio context activated');
-                    
-                    // Hide modal completely
-                    modal.classList.add('hidden');
-                    modal.style.display = 'none';
-                    console.log('Modal hidden');
-                    
-                    // Trigger the default sample load
-                    setTimeout(() => {
-                        const sampleSelect = document.getElementById('sampleSelect');
-                        if (sampleSelect && sampleSelect.value !== 'default') {
-                            console.log('Triggering sample load for:', sampleSelect.value);
-                            const changeEvent = new Event('change', { bubbles: true });
-                            sampleSelect.dispatchEvent(changeEvent);
-                        }
-                    }, 100);
-                    
-                } catch (error) {
-                    console.error('Error in start button click:', error);
+                // Activate audio
+                await this.activateAudioContext();
+                
+                // Hide modal
+                modal.style.display = 'none';
+                modal.classList.add('hidden');
+                console.log('Modal hidden');
+                
+                // Load sample
+                const sampleSelect = document.getElementById('sampleSelect');
+                if (sampleSelect && sampleSelect.value !== 'default') {
+                    const event = new Event('change', { bubbles: true });
+                    sampleSelect.dispatchEvent(event);
                 }
-            }, { once: true }); // Only allow one click
+            };
+            
+            startButton.onclick = clickHandler;
+            startButton.ontouchend = clickHandler;
+            console.log('Click handlers set');
         } else {
-            console.error('Modal or start button not found');
-            console.error('Available elements with IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+            console.error('Modal/button missing');
         }
     }
 }
