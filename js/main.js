@@ -205,7 +205,6 @@ class ChordPlayerApp {
             const success = await this.audioEngine.loadSample(file);
             if (success) {
                 console.log('Sample loaded:', file.name);
-                this.uiController.showSuccess(`Loaded: ${file.name}`);
             } else {
                 this.uiController.showError('Failed to load sample');
             }
