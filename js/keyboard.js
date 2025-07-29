@@ -4,8 +4,7 @@ class KeyboardRenderer {
         this.ctx = this.canvas.getContext('2d');
         this.chordLibrary = chordLibrary;
         
-        this.currentOctave = 0;
-        this.keys = this.chordLibrary.getPianoKeys(this.currentOctave);
+        this.keys = this.chordLibrary.getPianoKeys();
         this.highlightedKeys = new Set();
         this.pressedKeys = new Set();
         
@@ -243,10 +242,5 @@ class KeyboardRenderer {
         this.onKeyRelease = callback;
     }
 
-    updateKeyboardRange(octave) {
-        this.currentOctave = octave;
-        this.keys = this.chordLibrary.getPianoKeys(octave);
-        this.setupCanvas();
-        this.render();
-    }
+    // Keyboard range is now static - no need to update visually
 }

@@ -132,8 +132,7 @@ class ChordPlayerApp {
     handleOctaveChange(octave) {
         this.currentOctave = octave;
         
-        // Update keyboard range for the new octave only
-        this.keyboardRenderer.updateKeyboardRange(this.currentOctave);
+        // Keyboard is static - octave only affects sound, not visuals
         
         this.highlightCurrentChord();
     }

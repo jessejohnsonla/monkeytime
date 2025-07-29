@@ -99,22 +99,21 @@ class ChordLibrary {
         return this.PIANO_KEY_TO_MIDI[noteName];
     }
 
-    getKeyboardRange(octave = 0) {
+    getKeyboardRange() {
         // Static range that covers all possible chord extensions
         // Base range: C4 to B6 (2 octaves + 11 semitones = 35 keys)
         // This ensures any root note + m13 chord (21 semitones) will fit
         const baseMidi = 60; // C4
-        const octaveOffset = octave * 12;
         
         return {
-            lowest: baseMidi + octaveOffset,      // C at specified octave
-            highest: baseMidi + octaveOffset + 35 // B two octaves + 11 semitones higher
+            lowest: baseMidi,      // Always C4
+            highest: baseMidi + 35 // Always B6 + 11 semitones
         };
     }
 
-    getPianoKeys(octave = 0) {
+    getPianoKeys() {
         const keys = [];
-        const range = this.getKeyboardRange(octave);
+        const range = this.getKeyboardRange();
         
         for (let midi = range.lowest; midi <= range.highest; midi++) {
             const noteName = this.NOTE_NAMES[midi % 12];
