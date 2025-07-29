@@ -25,8 +25,8 @@ class ChordPlayerApp {
             // Initialize UI
             this.uiController.initialize();
             
-            // Samples are hardcoded in HTML - no dynamic loading needed
-            
+            // Load samples dynamically
+
             // Set default values in UI
             this.uiController.setChordType(this.currentChordType);
             this.uiController.setOctave(this.currentOctave);
