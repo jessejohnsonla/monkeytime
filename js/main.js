@@ -53,6 +53,9 @@ class ChordPlayerApp {
             this.isInitialized = true;
             console.log('Chord Player initialized successfully');
             
+            // Show the audio activation modal
+            this.showAudioModal();
+            
         } catch (error) {
             console.error('Failed to initialize Chord Player:', error);
             this.showError('Failed to initialize application');
@@ -243,6 +246,30 @@ class ChordPlayerApp {
 
     stopAllSounds() {
         this.audioEngine.stopAllNotes();
+    }
+
+    showAudioModal() {
+        const modal = document.getElementById('audioModal');
+        const startButton = document.getElementById('startButton');
+        
+        if (modal && startButton) {
+            modal.style.display = 'flex';
+            
+            startButton.addEventListener('click', async () => {
+                // Activate audio context
+                await this.activateAudioContext();
+                
+                // Hide modal
+                modal.classList.add('hidden');
+                
+                // Trigger the default sample load
+                const sampleSelect = document.getElementById('sampleSelect');
+                if (sampleSelect && sampleSelect.value !== 'default') {
+                    const changeEvent = new Event('change', { bubbles: true });
+                    sampleSelect.dispatchEvent(changeEvent);
+                }
+            });
+        }
     }
 }
 
